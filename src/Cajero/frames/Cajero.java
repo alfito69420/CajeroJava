@@ -57,14 +57,14 @@ public class Cajero extends javax.swing.JFrame {
 
         setTextPane();
 
-        setImageLabel(imgCoffe, "src/assets/taza-de-cafe.png");
-        setImageLabel(imgTe, "src/assets/te.png");
-        setImageLabel(imgChocolate, "src/assets/leche-con-chocolate.png");
-        setImageLabel(imgMate, "src/assets/te-de-mate.png");
+        setImageLabel(imgCoffe, "assets/taza-de-cafe.png");
+        setImageLabel(imgTe, "assets/te.png");
+        setImageLabel(imgChocolate, "assets/leche-con-chocolate.png");
+        setImageLabel(imgMate, "assets/te-de-mate.png");
     }
 
     private void setImageLabel(JLabel label, String root) {
-        ImageIcon image = new ImageIcon(root);
+        ImageIcon image = new ImageIcon(getClass().getClassLoader().getResource(root) );
 
         Icon icon = new ImageIcon(image.getImage()
                 .getScaledInstance(label.getWidth(),
