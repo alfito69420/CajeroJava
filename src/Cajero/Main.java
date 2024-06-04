@@ -4,13 +4,17 @@
  */
 package Cajero;
 
+import Cajero.frames.Cajero;
+
 /**
  *
  * @author panch
  */
 public class Main {
     public static void main(String[] args) {
-        Ventana ventana = new Ventana();
-        ventana.setVisible(true);
+        Cajero cajero = new Cajero();
+        cajero.setVisible(true);
+        cajero.setLocationRelativeTo(null);
+        //cajero.setDefaultCloseOperation(0);
     }
 }
