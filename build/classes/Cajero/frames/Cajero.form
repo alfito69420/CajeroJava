@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.JLabel" name="imgCoffe1">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="cc" type="rgb"/>
+        </Property>
+      </Properties>
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="Cajero"/>
@@ -75,7 +84,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                          <Component id="spinnerCafe" min="-2" pref="56" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="spinnerCafe" min="-2" pref="56" max="-2" attributes="0"/>
+                              <Component id="imgCoffe" alignment="0" min="-2" pref="54" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
@@ -96,27 +108,40 @@
                                       <Component id="jLabel4" min="-2" pref="37" max="-2" attributes="0"/>
                                       <Component id="jScrollPane2" min="-2" pref="76" max="-2" attributes="0"/>
                                       <Component id="comboBoxTe" alignment="0" min="-2" pref="76" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                          <Component id="imgTe" min="-2" pref="54" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="comboBoxChocolate" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jScrollPane3" alignment="0" min="-2" pref="75" max="-2" attributes="0"/>
                                               <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
                                                   <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                                  <Component id="spinnerChocolate" min="-2" pref="51" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="spinnerChocolate" alignment="0" min="-2" pref="51" max="-2" attributes="0"/>
+                                                      <Component id="imgChocolate" min="-2" pref="54" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                           </Group>
                                           <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="comboBoxMate" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
                                                   <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                                  <Component id="spinnerMate" min="-2" pref="52" max="-2" attributes="0"/>
+                                                  <Component id="imgMate" min="-2" pref="54" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                  <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="comboBoxMate" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                                      <Component id="spinnerMate" min="-2" pref="52" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -151,34 +176,41 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtContrasena" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="btnIngresar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtContrasena" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btnIngresar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="imgTe" min="-2" pref="47" max="-2" attributes="0"/>
+                              <Component id="imgCoffe" min="-2" pref="47" max="-2" attributes="0"/>
+                              <Component id="imgMate" min="-2" pref="47" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="jScrollPane4" min="-2" max="-2" attributes="0"/>
+                      <Component id="imgChocolate" min="-2" pref="47" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jScrollPane1" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jScrollPane3" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jScrollPane4" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -442,6 +474,34 @@
           <Properties>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[70, 22]"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="imgTe">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="cc" type="rgb"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="imgCoffe">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="cc" type="rgb"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="imgMate">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="cc" type="rgb"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="imgChocolate">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="cc" type="rgb"/>
             </Property>
           </Properties>
         </Component>
