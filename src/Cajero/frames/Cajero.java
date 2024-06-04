@@ -4,11 +4,30 @@
  */
 package Cajero.frames;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JTextPane;
+import javax.swing.SpinnerNumberModel;
+
 /**
  *
  * @author panch
  */
 public class Cajero extends javax.swing.JFrame {
+    
+    
+    String[] cafeArr = { "Americano", "Express", "Irlandes"};
+    String[] teArr = { "Verde", "Negro", "Manzana"};
+    String[] chocolateArr = { "A la mexicana", "A la española", "A la francesa"};
+    String[] mateArr = { "Dulce", "De leche", "Amargo"};
+    
+    HashMap<String, Integer> preciosCafe = new HashMap<>();
+    HashMap<String, Integer> preciosTe = new HashMap<>();
+    HashMap<String, Integer> preciosChocolate = new HashMap<>();
+    HashMap<String, Integer> preciosMate = new HashMap<>();
 
     /**
      * Creates new form Cajero
@@ -36,6 +55,83 @@ public class Cajero extends javax.swing.JFrame {
         textPaneChocolate.setEditable(false);
         textPaneMate.setEditable(false);
         textPaneTe.setEditable(false);
+        
+        // Initialize prices
+        initPrecios();
+        
+        // Add action listeners to combo boxes
+        comboBoxCafe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actualizarPrecio(comboBoxCafe, preciosCafe, textPaneCafe);
+            }
+        });
+        comboBoxTe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actualizarPrecio(comboBoxTe, preciosTe, textPaneTe);
+            }
+        });
+        comboBoxChocolate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actualizarPrecio(comboBoxChocolate, preciosChocolate, textPaneChocolate);
+            }
+        });
+        comboBoxMate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actualizarPrecio(comboBoxMate, preciosMate, textPaneMate);
+            }
+        });
+        
+        //  Se agregan las opciones de subproducto al combobox
+        setModelsToComboBox();
+        
+        //  Se setean los valores del spinner a positivos
+        setSpinnerModelToposisitve();
+    }
+    
+    private void initPrecios() {
+        preciosCafe.put("Americano", 20);
+        preciosCafe.put("Express", 25);
+        preciosCafe.put("Irlandes", 30);
+
+        preciosTe.put("Verde", 15);
+        preciosTe.put("Negro", 20);
+        preciosTe.put("Manzana", 18);
+
+        preciosChocolate.put("A la mexicana", 25);
+        preciosChocolate.put("A la española", 30);
+        preciosChocolate.put("A la francesa", 35);
+
+        preciosMate.put("Dulce", 10);
+        preciosMate.put("De leche", 15);
+        preciosMate.put("Amargo", 12);
+    }
+    
+    private void actualizarPrecio(JComboBox<String> comboBox, HashMap<String, Integer> precios, JTextPane textPane) {
+        String selectedItem = (String) comboBox.getSelectedItem();
+        if (selectedItem != null) {
+            int precio = precios.getOrDefault(selectedItem, 0);
+            textPane.setText("$" + precio);
+        }
+    }
+    
+    private void setModelsToComboBox() {
+        // Set combo box models
+        comboBoxCafe.setModel(new DefaultComboBoxModel<>(cafeArr));
+        comboBoxTe.setModel(new DefaultComboBoxModel<>(teArr));
+        comboBoxChocolate.setModel(new DefaultComboBoxModel<>(chocolateArr));
+        comboBoxMate.setModel(new DefaultComboBoxModel<>(mateArr));
+    }
+    
+        private void setSpinnerModelToposisitve() {
+        // Set spinner models to prevent negative values
+        spinnerCafe.setModel(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
+        spinnerTe.setModel(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
+        spinnerChocolate.setModel(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
+        spinnerMate.setModel(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
     }
 
     /**
@@ -147,6 +243,12 @@ public class Cajero extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
@@ -416,4 +518,5 @@ public class Cajero extends javax.swing.JFrame {
     private javax.swing.JTextField txtContrasena;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
 }
