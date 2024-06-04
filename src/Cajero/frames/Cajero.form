@@ -154,7 +154,6 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btnAgregarCafe" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="btnCobrar" alignment="1" min="-2" pref="502" max="-2" attributes="0"/>
                                   <Component id="jScrollPane5" min="-2" pref="503" max="-2" attributes="0"/>
                                   <Component id="jLabel3" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
@@ -169,6 +168,11 @@
                           <EmptySpace min="0" pref="34" max="32767" attributes="0"/>
                       </Group>
                   </Group>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="233" max="-2" attributes="0"/>
+                  <Component id="btnCobrar" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -235,9 +239,9 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jScrollPane5" min="-2" pref="238" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnCobrar" min="-2" pref="38" max="-2" attributes="0"/>
-                  <EmptySpace pref="66" max="32767" attributes="0"/>
+                  <EmptySpace pref="72" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

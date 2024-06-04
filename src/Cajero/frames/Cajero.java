@@ -51,20 +51,24 @@ public class Cajero extends javax.swing.JFrame {
         setModelsToComboBox();
         //  Se setean los valores del spinner a positivos
         setSpinnerModelToposisitve();
-        
-        
+
+        textPaneCafe.setText("$20");
+        textPaneTe.setText("$15");
+        textPaneChocolate.setText("$25");
+        textPaneMate.setText("$10");
+
         setImageLabel(imgCoffe, "src/assets/taza-de-cafe.png");
         setImageLabel(imgTe, "src/assets/te.png");
         setImageLabel(imgChocolate, "src/assets/leche-con-chocolate.png");
         setImageLabel(imgMate, "src/assets/te-de-mate.png");
     }
-    
+
     private void setImageLabel(JLabel label, String root) {
         ImageIcon image = new ImageIcon(root);
-        
+
         Icon icon = new ImageIcon(image.getImage()
-                .getScaledInstance(label.getWidth(), 
-                        label.getHeight(), 
+                .getScaledInstance(label.getWidth(),
+                        label.getHeight(),
                         java.awt.Image.SCALE_DEFAULT));
         label.setIcon(icon);
         this.repaint();
@@ -145,12 +149,28 @@ public class Cajero extends javax.swing.JFrame {
     }
 
     private void agregarFila(String tipo, String subTipo, int cantidad, int precio) {
+
         int subtotal = cantidad * precio;
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.addRow(new Object[]{tipo + " " + subTipo, cantidad, subtotal});
+        if (model.getRowCount() < 10) { // Verificar si el número de filas es menor que 10
+
+            model.addRow(new Object[]{tipo + " " + subTipo, cantidad, subtotal});
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                    "Se alcanzó el límite de 10 artículos.",
+                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
-// Modificar los ActionListener de los botones "Agregar"
+    /*
+    private void agregarFila(String tipo, String subTipo, int cantidad, int precio) {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        for (int i = 0; i < cantidad; i++) {
+            int subtotal = precio;
+            model.addRow(new Object[]{tipo + " " + subTipo, 1, subtotal});
+        }
+    }*/
+    
     private void btnAgregarCafeActionPerformed(java.awt.event.ActionEvent evt) {
         String subTipo = (String) comboBoxCafe.getSelectedItem();
         int cantidad = (int) spinnerCafe.getValue();
@@ -448,7 +468,6 @@ public class Cajero extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAgregarCafe)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnCobrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 502, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -457,6 +476,10 @@ public class Cajero extends javax.swing.JFrame {
                                         .addComponent(jScrollPane1))
                                     .addGap(431, 431, 431))))
                         .addGap(0, 34, Short.MAX_VALUE))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(233, 233, 233)
+                .addComponent(btnCobrar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -511,9 +534,9 @@ public class Cajero extends javax.swing.JFrame {
                     .addComponent(btnAgregarMate))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -549,20 +572,20 @@ public class Cajero extends javax.swing.JFrame {
         if (!usuario.equals("admin")) {
             intentosRestantes--;
             JOptionPane.showMessageDialog(this,
-                        "Error: El usuario no es correcto. Intentos restantes: " + intentosRestantes,
-                        "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+                    "Error: El usuario no es correcto. Intentos restantes: " + intentosRestantes,
+                    "Error de autenticación", JOptionPane.ERROR_MESSAGE);
         } else if (!contrasena.equals("1234")) {
             intentosRestantes--;
             JOptionPane.showMessageDialog(this,
-                        "Error: La contraseña no es correcta. Intentos restantes: " + intentosRestantes,
-                        "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+                    "Error: La contraseña no es correcta. Intentos restantes: " + intentosRestantes,
+                    "Error de autenticación", JOptionPane.ERROR_MESSAGE);
         } else if (!usuario.equals("admin") && !contrasena.equals("1234")) {
             intentosRestantes--;
             JOptionPane.showMessageDialog(this,
-                        "Error: Las credenciales no son correctas. Intentos restantes: " + intentosRestantes,
-                        "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+                    "Error: Las credenciales no son correctas. Intentos restantes: " + intentosRestantes,
+                    "Error de autenticación", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         if (intentosRestantes > 0 && usuario.equals("admin") && contrasena.equals("1234")) {
             System.out.println("Las credenciales son correctas");
             habilitarComponentes();
@@ -571,13 +594,13 @@ public class Cajero extends javax.swing.JFrame {
 
         if (intentosRestantes <= 0) {
             bloquearSistema();
-        } 
+        }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void bloquearSistema() {
         JOptionPane.showMessageDialog(this,
-                    "El sistema ha sido bloqueado.",
-                    "Sistema Bloqueado", JOptionPane.ERROR_MESSAGE);
+                "El sistema ha sido bloqueado.",
+                "Sistema Bloqueado", JOptionPane.ERROR_MESSAGE);
     }
 
     private void habilitarComponentes() {
