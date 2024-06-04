@@ -55,10 +55,7 @@ public class Cajero extends javax.swing.JFrame {
         //  Se setean los valores del spinner a positivos
         setSpinnerModelToposisitve();
 
-        textPaneCafe.setText("$20");
-        textPaneTe.setText("$15");
-        textPaneChocolate.setText("$25");
-        textPaneMate.setText("$10");
+        setTextPane();
 
         setImageLabel(imgCoffe, "src/assets/taza-de-cafe.png");
         setImageLabel(imgTe, "src/assets/te.png");
@@ -75,6 +72,13 @@ public class Cajero extends javax.swing.JFrame {
                         java.awt.Image.SCALE_DEFAULT));
         label.setIcon(icon);
         this.repaint();
+    }
+
+    private void setTextPane() {
+        textPaneCafe.setText("$20");
+        textPaneTe.setText("$15");
+        textPaneChocolate.setText("$25");
+        textPaneMate.setText("$10");
     }
 
     private void addToTable() {
@@ -642,10 +646,31 @@ public class Cajero extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,
                     "Le sobra en efectivo: $" + totalFinal,
                     "Cambio", JOptionPane.PLAIN_MESSAGE);
-        }
 
-        //String cantidadStr = JOptionPane.showInputDialog(this, "Ingrese la cantidad :", "Cantidad", JOptionPane.PLAIN_MESSAGE);
+            resetCajero();
+        }
     }//GEN-LAST:event_btnCobrarActionPerformed
+
+    private void resetCajero() {
+        //  Limpia la tabla
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0); // Establecer el número de filas en cero para vaciar la tabla
+
+        //  Limpia los textPanel
+        setTextPane();
+
+        //  Limpia los comboBox
+        comboBoxCafe.setSelectedIndex(0);
+        comboBoxTe.setSelectedIndex(0);
+        comboBoxChocolate.setSelectedIndex(0);
+        comboBoxMate.setSelectedIndex(0);
+
+        //  Limpia los spinner
+        spinnerCafe.setValue(0);
+        spinnerTe.setValue(0);
+        spinnerChocolate.setValue(0);
+        spinnerMate.setValue(0);
+    }
 
     /*
     public static void main(String args[]) {
