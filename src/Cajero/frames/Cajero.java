@@ -30,6 +30,9 @@ public class Cajero extends javax.swing.JFrame {
     private final String[] mateArr = {"Dulce", "De leche", "Amargo"};
     private int intentosRestantes = 3;
 
+    private int totalPagar = 0;
+    //private int totalEfectivo = 0;
+
     private HashMap<String, Integer> preciosCafe = new HashMap<>();
     private HashMap<String, Integer> preciosTe = new HashMap<>();
     private HashMap<String, Integer> preciosChocolate = new HashMap<>();
@@ -153,10 +156,11 @@ public class Cajero extends javax.swing.JFrame {
         int subtotal = cantidad * precio;
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         if (model.getRowCount() < 10) { // Verificar si el número de filas es menor que 10
-
             model.addRow(new Object[]{tipo + " " + subTipo, cantidad, subtotal});
+
+            totalPagar += subtotal;
         } else {
-            JOptionPane.showMessageDialog(this, 
+            JOptionPane.showMessageDialog(this,
                     "Se alcanzó el límite de 10 artículos.",
                     "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
@@ -170,7 +174,6 @@ public class Cajero extends javax.swing.JFrame {
             model.addRow(new Object[]{tipo + " " + subTipo, 1, subtotal});
         }
     }*/
-    
     private void btnAgregarCafeActionPerformed(java.awt.event.ActionEvent evt) {
         String subTipo = (String) comboBoxCafe.getSelectedItem();
         int cantidad = (int) spinnerCafe.getValue();
@@ -557,10 +560,6 @@ public class Cajero extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
-    private void btnCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCobrarActionPerformed
-
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
         String usuario;
@@ -627,6 +626,26 @@ public class Cajero extends javax.swing.JFrame {
     private void comboBoxCafeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCafeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxCafeActionPerformed
+
+    private void btnCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobrarActionPerformed
+        // TODO add your handling code here:
+        int totalEfectivo = Integer.parseInt(JOptionPane.showInputDialog(this,
+                "La cantidad a total a pagar es de: $" + totalPagar
+                + ". Ingrese la cantidad con la que pagará: ",
+                "Cantidad", JOptionPane.PLAIN_MESSAGE));
+        if (totalEfectivo < totalPagar) {
+            JOptionPane.showMessageDialog(this,
+                    "Debe pagar la cantidad solicitada.",
+                    "Error.", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int totalFinal = totalEfectivo - totalPagar;
+            JOptionPane.showMessageDialog(this,
+                    "Le sobra en efectivo: $" + totalFinal,
+                    "Cambio", JOptionPane.PLAIN_MESSAGE);
+        }
+
+        //String cantidadStr = JOptionPane.showInputDialog(this, "Ingrese la cantidad :", "Cantidad", JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_btnCobrarActionPerformed
 
     /*
     public static void main(String args[]) {
