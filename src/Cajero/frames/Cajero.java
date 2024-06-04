@@ -10,57 +10,71 @@ import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author panch
  */
 public class Cajero extends javax.swing.JFrame {
-    
-    
-    String[] cafeArr = { "Americano", "Express", "Irlandes"};
-    String[] teArr = { "Verde", "Negro", "Manzana"};
-    String[] chocolateArr = { "A la mexicana", "A la española", "A la francesa"};
-    String[] mateArr = { "Dulce", "De leche", "Amargo"};
-    
-    HashMap<String, Integer> preciosCafe = new HashMap<>();
-    HashMap<String, Integer> preciosTe = new HashMap<>();
-    HashMap<String, Integer> preciosChocolate = new HashMap<>();
-    HashMap<String, Integer> preciosMate = new HashMap<>();
+
+    private final String[] cafeArr = {"Americano", "Express", "Irlandes"};
+    private final String[] teArr = {"Verde", "Negro", "Manzana"};
+    private final String[] chocolateArr = {"A la mexicana", "A la española", "A la francesa"};
+    private final String[] mateArr = {"Dulce", "De leche", "Amargo"};
+    private int intentosRestantes = 3;
+
+    private HashMap<String, Integer> preciosCafe = new HashMap<>();
+    private HashMap<String, Integer> preciosTe = new HashMap<>();
+    private HashMap<String, Integer> preciosChocolate = new HashMap<>();
+    private HashMap<String, Integer> preciosMate = new HashMap<>();
 
     /**
      * Creates new form Cajero
      */
     public Cajero() {
         initComponents();
-
         //  Se deshabilitan componentes
-        comboBoxCafe.setEnabled(false);
-        comboBoxChocolate.setEnabled(false);
-        comboBoxMate.setEnabled(false);
-        comboBoxTe.setEnabled(false);
-        btnAgregarCafe.setEnabled(false);
-        btnAgregarChocolate.setEnabled(false);
-        btnAgregarMate.setEnabled(false);
-        btnAgregarTe.setEnabled(false);
-        spinnerCafe.setEnabled(false);
-        spinnerChocolate.setEnabled(false);
-        spinnerMate.setEnabled(false);
-        spinnerTe.setEnabled(false);
-        btnCobrar.setEnabled(false);
-
-        //  Se deshabilita la opcion de edicion
-        textPaneCafe.setEditable(false);
-        textPaneChocolate.setEditable(false);
-        textPaneMate.setEditable(false);
-        textPaneTe.setEditable(false);
-        
-        // Initialize prices
+        disableComponents();
+        //  Se configura el valor de cada subtipo de producto
         initPrecios();
-        
-        // Add action listeners to combo boxes
+        comboBoxCatalogo();
+        //  Se agregan valores a la tabla
+        addToTable();
+        //  Se agregan las opciones de subproducto al combobox
+        setModelsToComboBox();
+        //  Se setean los valores del spinner a positivos
+        setSpinnerModelToposisitve();
+    }
+
+    private void addToTable() {
+        //  
+        btnAgregarCafe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarCafeActionPerformed(evt);
+            }
+        });
+        btnAgregarTe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarTeActionPerformed(evt);
+            }
+        });
+        btnAgregarChocolate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarChocolateActionPerformed(evt);
+            }
+        });
+        btnAgregarMate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarMateActionPerformed(evt);
+            }
+        });
+    }
+
+    private void comboBoxCatalogo() {
         comboBoxCafe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -85,14 +99,66 @@ public class Cajero extends javax.swing.JFrame {
                 actualizarPrecio(comboBoxMate, preciosMate, textPaneMate);
             }
         });
-        
-        //  Se agregan las opciones de subproducto al combobox
-        setModelsToComboBox();
-        
-        //  Se setean los valores del spinner a positivos
-        setSpinnerModelToposisitve();
     }
-    
+
+    private void disableComponents() {
+        //  Se deshabilitan componentes
+        comboBoxCafe.setEnabled(false);
+        comboBoxChocolate.setEnabled(false);
+        comboBoxMate.setEnabled(false);
+        comboBoxTe.setEnabled(false);
+        btnAgregarCafe.setEnabled(false);
+        btnAgregarChocolate.setEnabled(false);
+        btnAgregarMate.setEnabled(false);
+        btnAgregarTe.setEnabled(false);
+        spinnerCafe.setEnabled(false);
+        spinnerChocolate.setEnabled(false);
+        spinnerMate.setEnabled(false);
+        spinnerTe.setEnabled(false);
+        btnCobrar.setEnabled(false);
+
+        //  Se deshabilita la opcion de edicion
+        textPaneCafe.setEditable(false);
+        textPaneChocolate.setEditable(false);
+        textPaneMate.setEditable(false);
+        textPaneTe.setEditable(false);
+    }
+
+    private void agregarFila(String tipo, String subTipo, int cantidad, int precio) {
+        int subtotal = cantidad * precio;
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.addRow(new Object[]{tipo + " " + subTipo, cantidad, subtotal});
+    }
+
+// Modificar los ActionListener de los botones "Agregar"
+    private void btnAgregarCafeActionPerformed(java.awt.event.ActionEvent evt) {
+        String subTipo = (String) comboBoxCafe.getSelectedItem();
+        int cantidad = (int) spinnerCafe.getValue();
+        int precio = preciosCafe.get(subTipo);
+        agregarFila("Café", subTipo, cantidad, precio);
+    }
+
+    private void btnAgregarTeActionPerformed(java.awt.event.ActionEvent evt) {
+        String subTipo = (String) comboBoxTe.getSelectedItem();
+        int cantidad = (int) spinnerTe.getValue();
+        int precio = preciosTe.get(subTipo);
+        agregarFila("Té", subTipo, cantidad, precio);
+    }
+
+    private void btnAgregarChocolateActionPerformed(java.awt.event.ActionEvent evt) {
+        String subTipo = (String) comboBoxChocolate.getSelectedItem();
+        int cantidad = (int) spinnerChocolate.getValue();
+        int precio = preciosChocolate.get(subTipo);
+        agregarFila("Chocolate", subTipo, cantidad, precio);
+    }
+
+    private void btnAgregarMateActionPerformed(java.awt.event.ActionEvent evt) {
+        String subTipo = (String) comboBoxMate.getSelectedItem();
+        int cantidad = (int) spinnerMate.getValue();
+        int precio = preciosMate.get(subTipo);
+        agregarFila("Mate", subTipo, cantidad, precio);
+    }
+
     private void initPrecios() {
         preciosCafe.put("Americano", 20);
         preciosCafe.put("Express", 25);
@@ -110,7 +176,7 @@ public class Cajero extends javax.swing.JFrame {
         preciosMate.put("De leche", 15);
         preciosMate.put("Amargo", 12);
     }
-    
+
     private void actualizarPrecio(JComboBox<String> comboBox, HashMap<String, Integer> precios, JTextPane textPane) {
         String selectedItem = (String) comboBox.getSelectedItem();
         if (selectedItem != null) {
@@ -118,7 +184,7 @@ public class Cajero extends javax.swing.JFrame {
             textPane.setText("$" + precio);
         }
     }
-    
+
     private void setModelsToComboBox() {
         // Set combo box models
         comboBoxCafe.setModel(new DefaultComboBoxModel<>(cafeArr));
@@ -126,8 +192,8 @@ public class Cajero extends javax.swing.JFrame {
         comboBoxChocolate.setModel(new DefaultComboBoxModel<>(chocolateArr));
         comboBoxMate.setModel(new DefaultComboBoxModel<>(mateArr));
     }
-    
-        private void setSpinnerModelToposisitve() {
+
+    private void setSpinnerModelToposisitve() {
         // Set spinner models to prevent negative values
         spinnerCafe.setModel(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
         spinnerTe.setModel(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
@@ -239,11 +305,6 @@ public class Cajero extends javax.swing.JFrame {
         comboBoxMate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnAgregarCafe.setText("Agregar");
-        btnAgregarCafe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarCafeActionPerformed(evt);
-            }
-        });
 
         btnAgregarTe.setText("Agregar");
 
@@ -253,16 +314,7 @@ public class Cajero extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Artículo", "Cantidad", "Subtotal"
@@ -434,7 +486,6 @@ public class Cajero extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCobrarActionPerformed
 
-
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
         String usuario;
@@ -443,38 +494,60 @@ public class Cajero extends javax.swing.JFrame {
         usuario = txtUsuario.getText().toString();
         contrasena = txtContrasena.getText().toString();
 
-        //if (usuario.contains("") || contrasena.contains("")) {
-        //   System.out.println("Debe ingresar todos los campos.");
-        //} else {
-        //}
-        if (usuario.contains("admin") && contrasena.contains("1234")) {
+        if (!usuario.equals("admin")) {
+            intentosRestantes--;
+            JOptionPane.showMessageDialog(this,
+                        "Error: El usuario no es correcto. Intentos restantes: " + intentosRestantes,
+                        "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+        } else if (!contrasena.equals("1234")) {
+            intentosRestantes--;
+            JOptionPane.showMessageDialog(this,
+                        "Error: La contraseña no es correcta. Intentos restantes: " + intentosRestantes,
+                        "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+        } else if (!usuario.equals("admin") && !contrasena.equals("1234")) {
+            intentosRestantes--;
+            JOptionPane.showMessageDialog(this,
+                        "Error: Las credenciales no son correctas. Intentos restantes: " + intentosRestantes,
+                        "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        if (intentosRestantes > 0 && usuario.equals("admin") && contrasena.equals("1234")) {
             System.out.println("Las credenciales son correctas");
-
-            comboBoxCafe.setEnabled(true);
-            comboBoxChocolate.setEnabled(true);
-            comboBoxMate.setEnabled(true);
-            comboBoxTe.setEnabled(true);
-            btnAgregarCafe.setEnabled(true);
-            btnAgregarChocolate.setEnabled(true);
-            btnAgregarMate.setEnabled(true);
-            btnAgregarTe.setEnabled(true);
-            spinnerCafe.setEnabled(true);
-            spinnerChocolate.setEnabled(true);
-            spinnerMate.setEnabled(true);
-            spinnerTe.setEnabled(true);
-            btnCobrar.setEnabled(true);
-            
-            txtUsuario.setText("");
-            txtContrasena.setText("");
-        } else {
-            System.out.println("Error al ingresar las credenciales");
+            habilitarComponentes();
+            limpiarCampos();
         }
 
+        if (intentosRestantes <= 0) {
+            bloquearSistema();
+        } 
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-    private void btnAgregarCafeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCafeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAgregarCafeActionPerformed
+    private void bloquearSistema() {
+        JOptionPane.showMessageDialog(this,
+                    "El sistema ha sido bloqueado.",
+                    "Sistema Bloqueado", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void habilitarComponentes() {
+        comboBoxCafe.setEnabled(true);
+        comboBoxChocolate.setEnabled(true);
+        comboBoxMate.setEnabled(true);
+        comboBoxTe.setEnabled(true);
+        btnAgregarCafe.setEnabled(true);
+        btnAgregarChocolate.setEnabled(true);
+        btnAgregarMate.setEnabled(true);
+        btnAgregarTe.setEnabled(true);
+        spinnerCafe.setEnabled(true);
+        spinnerChocolate.setEnabled(true);
+        spinnerMate.setEnabled(true);
+        spinnerTe.setEnabled(true);
+        btnCobrar.setEnabled(true);
+    }
+
+    private void limpiarCampos() {
+        txtUsuario.setText("");
+        txtContrasena.setText("");
+    }
 
     private void comboBoxCafeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCafeActionPerformed
         // TODO add your handling code here:
